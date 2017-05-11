@@ -16,21 +16,21 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Open+Sans+Condensed:100,300,600">
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('images/simplon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/simplon.png') }}">
   </head>
   <body>
     <header>
       <nav class="top-right links">
         <ul>
-          <li><a class="gds" href="{{ url('/') }}">GDS - la gazette des Simplonien.ne.s</a></li>
-          <li><a href="{{ url('/articles') }}">Articles</a></li>
-          <li><a href="{{ url('/users') }}">Utilisateurs</a></li>
-          <li><a href="{{ url('/issues') }}">Publications</a></li>
+          <li><a class="gds" href="{{ route('root') }}">GDS - la gazette des Simplonien.ne.s</a></li>
+          <li><a href="{{ route('articles.index') }}">Articles</a></li>
+          <li><a href="{{ route('users.index') }}">Utilisateurs</a></li>
+          <li><a href="{{ route('issues.index') }}">Publications</a></li>
           @if (Route::has('login'))
             @if (Auth::check())
-              <li class="right"><a href="{{ url('/home') }}">Profil</a></li>
+              <li class="right"><a href="{{ route('home') }}">Profil</a></li>
               <li><a href="{{ url('/logout') }}">Log out</a></li>
             @else
               <li class="right"><a href="{{ url('/login') }}">Log in</a></li>
