@@ -11,5 +11,8 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.sass('resources/assets/sass/all.scss', 'public/css')
+   .options({
+      processCssUrls: false
+   })
+   .copy('resources/assets/images/', 'public/images/', false); // Don't flatten!
