@@ -14,4 +14,12 @@ class Article extends Model
     protected $fillable = [
         'title', 'content'
     ];
+
+    /**
+     * Get the user that wrote the article.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

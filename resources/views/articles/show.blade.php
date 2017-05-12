@@ -3,6 +3,19 @@
 @section('title', $article->title)
 
 @section('content')
-  <h1>{{ $article->title }}</h1>
-  {{ $article->content }}
+  <article>
+    <h1 class="title">{{ $article->title }}</h1>
+    {{ $article->content }}
+    <footer>
+      {{ $article->user->name }}
+    </footer>
+  </article>
+  <aside class="comments">
+    <section>
+      foo
+    </section>
+    <section>
+      bar
+    </section>
+  </aside>
 @endsection

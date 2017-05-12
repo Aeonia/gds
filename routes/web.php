@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect()->route('root');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('articles', 'ArticleController');

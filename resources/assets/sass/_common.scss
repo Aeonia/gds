@@ -1,9 +1,39 @@
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+  }
+}
+
+.clear-both {
+  clear: both;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
 .overflow-auto {
   overflow: auto;
 }
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-ellipsis {
+  @extend .overflow-hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .text-left {

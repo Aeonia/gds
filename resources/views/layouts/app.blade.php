@@ -21,25 +21,23 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/images/simplon.png') }}">
   </head>
   <body>
-    <header>
-      <nav class="top-right links">
-        <ul>
-          <li><a class="gds" href="{{ route('root') }}">GDS - la gazette des Simplonien.ne.s</a></li>
-          <li><a href="{{ route('articles.index') }}">Articles</a></li>
-          <li><a href="{{ route('users.index') }}">Utilisateurs</a></li>
-          <li><a href="{{ route('issues.index') }}">Publications</a></li>
-          @if (Route::has('login'))
-            @if (Auth::check())
-              <li class="right"><a href="{{ route('home') }}">Profil</a></li>
-              <li><a href="{{ url('/logout') }}">Log out</a></li>
-            @else
-              <li class="right"><a href="{{ url('/login') }}">Log in</a></li>
-              <li><a href="{{ url('/register') }}">Register</a></li>
-            @endif
+    <nav class="gds-nav-bar">
+      <ul>
+        <li><a class="gds" href="{{ route('root') }}">GDS - la gazette des Simplonien.ne.s</a></li>
+        <li><a href="{{ route('articles.index') }}">Articles</a></li>
+        <li><a href="{{ route('users.index') }}">Utilisateurs</a></li>
+        <li><a href="{{ route('issues.index') }}">Publications</a></li>
+        @if (Route::has('login'))
+          @if (Auth::check())
+            <li class="right"><a href="{{ route('home') }}">Profil</a></li>
+            <li><a href="{{ url('/logout') }}">Log out</a></li>
+          @else
+            <li class="right"><a href="{{ url('/login') }}">Log in</a></li>
+            <li><a href="{{ url('/register') }}">Register</a></li>
           @endif
-        </ul>
-      </nav>
-    </header>
+        @endif
+      </ul>
+    </nav>
     <main @hasSection('mainClass') class="@yield('mainClass', '')" @endif>
       @yield('content')
     </main>
