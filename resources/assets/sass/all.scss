@@ -162,7 +162,7 @@ main {
   padding-top: 1em;
 }
 
-form {
+form:not([class~=next-to-title]) {
   @extend .flex-column;
   @extend .align-stretch;
 
@@ -214,8 +214,26 @@ form {
   line-height: 2;
 }
 
+.next-to-title {
+  @extend .title;
+  @extend .float-right;
+
+  letter-spacing: initial;
+
+  button {
+    font-family: 'Open Sans Condensed', sans-serif;
+  }
+}
+
 article {
-  padding: .5em;
+
+  &.showing .content {
+    padding: .5em;
+  }
+
+  &:not(.showing) {
+    padding: .5em;
+  }
 
   &:not(:first-of-type()) {
     border-top: solid 1px $border-color;
@@ -229,10 +247,6 @@ article {
 
     background: #fffbec;
   }
-}
-
-.button {
-  line-height: 2;
 }
 
 .markdown-preview {

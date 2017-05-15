@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Mail\Markdown;
 
 class ArticleController extends Controller
 {
@@ -70,9 +71,16 @@ class ArticleController extends Controller
         }
 
         $input['user_id'] = Auth::id();
+        $input['html_content'] = Markdown::parse($input['content']);
+        $input['excerpt'] = str_limit(
+            strip_tags(
+                $input['html_content']
+            ),
+            140
+        );
 
         $article = Article::create($input);
-        
+
         return redirect()->route('articles.show', [$article]);
     }
 
@@ -120,6 +128,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+
+        return redirect()->route('articles.index');
     }
 }

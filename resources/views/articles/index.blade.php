@@ -3,11 +3,9 @@
 @section('title', 'Articles')
 
 @section('content')
-  <nav class="float-right">
-    <ul>
-      <li><a class="button" href="{{ route('articles.create') }}">Nouveau</a></li>
-    </ul>
-  </nav>
+  <form class="next-to-title" action="{{ route('articles.create') }}" method="get">
+    <button type="submit">nouveau</button>
+  </form>
   <h1 class="title">Articles</h1>
 
   @each('articles.item', $articles, 'article', 'articles.no-items')

@@ -27,14 +27,12 @@
         <li><a href="{{ route('articles.index') }}">Articles</a></li>
         <li><a href="{{ route('users.index') }}">Utilisateurs</a></li>
         <li><a href="{{ route('issues.index') }}">Publications</a></li>
-        @if (Route::has('login'))
-          @if (Auth::check())
-            <li class="right"><a href="{{ route('home') }}">Profil</a></li>
-            <li><a href="{{ url('/logout') }}">Log out</a></li>
-          @else
-            <li class="right"><a href="{{ url('/login') }}">Log in</a></li>
-            <li><a href="{{ url('/register') }}">Register</a></li>
-          @endif
+        @if (Auth::check())
+          <li class="right"><a href="{{ route('home') }}">Profil</a></li>
+          <li><a href="{{ url('/logout') }}">Log out</a></li>
+        @else
+          <li class="right"><a href="{{ route('login') }}">Log in</a></li>
+          <li><a href="{{ route('register') }}">Register</a></li>
         @endif
       </ul>
     </nav>
