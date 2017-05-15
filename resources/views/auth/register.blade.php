@@ -3,7 +3,7 @@
 @section('title', 'Sign up')
 
 @section('content')
-  <form role="form" method="POST" action="{{ route('register') }}">
+  <form role="form" method="post" action="{{ route('register') }}">
     {{ csrf_field() }}
 
     <div class="group{{ $errors->has('name') ? ' has-error' : '' }}">

@@ -7,7 +7,7 @@
     <p class="alert alert-success">{{ session('status') }}</p>
   @endif
 
-  <form role="form" method="POST" action="{{ route('password.request') }}">
+  <form role="form" method="post" action="{{ route('password.request') }}">
     {{ csrf_field() }}
 
     <input type="hidden" name="token" value="{{ $token }}">

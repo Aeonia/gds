@@ -2,6 +2,7 @@
 @import 'flexbox';
 
 $color: #636b6f;
+$border-color: #e4e6e7;
 
 body {
   @extend .flex-column;
@@ -120,7 +121,7 @@ a:hover {
     height: $a_height;
 
     color: $color;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
@@ -192,7 +193,7 @@ form {
   }
 
   .help-block {
-    font-weight: bold;
+    font-weight: 700;
   }
 }
 
@@ -217,14 +218,14 @@ article {
   padding: .5em;
 
   &:not(:first-of-type()) {
-    border-top: solid 1px #e4e6e7;
+    border-top: solid 1px $border-color;
   }
 }
 
 .comments {
   section {
     padding: .5em;
-    border-top: solid 1px #e4e6e7;
+    border-top: solid 1px $border-color;
 
     background: #fffbec;
   }
@@ -232,4 +233,10 @@ article {
 
 .button {
   line-height: 2;
+}
+
+.markdown-preview {
+  margin-bottom: 1em;
+  border-top: dotted 1px $border-color;
+  border-bottom: dotted 1px $border-color;
 }

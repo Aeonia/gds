@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -39,7 +40,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -50,7 +51,29 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        if (
+            $request->input('content') &&
+            strlen($request->input('content')) < 500
+        ) {
+            $this->validate($request, [
+              'content' => 'required|min:140'
+            ]);
+
+            $input['title'] = 'Brève';
+        } else {
+            $this->validate($request, [
+              'title' => 'required|max:255',
+              'content' => 'required|max:5000'
+            ]);
+        }
+
+        $input['user_id'] = Auth::id();
+
+        $article = Article::create($input);
+        
+        return redirect()->route('articles.show', [$article]);
     }
 
     /**

@@ -187,7 +187,7 @@ a:hover {
   padding: .5em 1em;
   height: 2.5em;
   color: #636b6f;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .1rem;
   text-decoration: none;
   text-transform: uppercase;
@@ -241,7 +241,7 @@ form .row {
 }
 
 form .help-block {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .pagination li {
@@ -271,4 +271,10 @@ article:not(:first-of-type) {
 
 .button {
   line-height: 2;
+}
+
+.markdown-preview {
+  margin-bottom: 1em;
+  border-top: dotted 1px #e4e6e7;
+  border-bottom: dotted 1px #e4e6e7;
 }

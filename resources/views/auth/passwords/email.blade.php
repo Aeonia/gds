@@ -7,7 +7,7 @@
     <p class="alert alert-success">{{ session('status') }}</p>
   @endif
 
-  <form role="form" method="POST" action="{{ route('password.email') }}">
+  <form role="form" method="post" action="{{ route('password.email') }}">
     {{ csrf_field() }}
 
     <div class="group{{ $errors->has('email') ? ' has-error' : '' }}">

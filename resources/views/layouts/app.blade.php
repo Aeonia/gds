@@ -14,7 +14,7 @@
     </title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Open+Sans+Condensed:100,300,600">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Open+Sans+Condensed:300,300i,700">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
     <!-- Favicon -->
@@ -38,7 +38,7 @@
         @endif
       </ul>
     </nav>
-    <main @hasSection('mainClass') class="@yield('mainClass', '')" @endif>
+    <main @hasSection('mainClass') class="@yield('mainClass')" @endif>
       @yield('content')
     </main>
   </body>
