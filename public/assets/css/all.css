@@ -244,6 +244,10 @@ form:not([class~=next-to-title]) .help-block {
   font-weight: 700;
 }
 
+button {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
 .pagination li {
   margin: 0 .5em;
 }
@@ -257,10 +261,6 @@ form:not([class~=next-to-title]) .help-block {
 
 .next-to-title {
   letter-spacing: initial;
-}
-
-.next-to-title button {
-  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 article.showing .content {

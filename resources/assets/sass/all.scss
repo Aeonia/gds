@@ -197,6 +197,10 @@ form:not([class~=next-to-title]) {
   }
 }
 
+button {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
 .pagination {
   @extend .flex-row;
   @extend .align-center;
@@ -219,10 +223,6 @@ form:not([class~=next-to-title]) {
   @extend .float-right;
 
   letter-spacing: initial;
-
-  button {
-    font-family: 'Open Sans Condensed', sans-serif;
-  }
 }
 
 article {

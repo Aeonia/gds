@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Mail\Markdown;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -18,7 +18,9 @@ class ArticleController extends Controller
     {
         $this->middleware('auth', ['only' => [
             'create',
-            'store'
+            'store',
+            'edit',
+            'update'
         ]]);
     }
 
@@ -30,7 +32,7 @@ class ArticleController extends Controller
     public function index()
     {
         return view('articles.index', [
-            'articles' => Article::with('user')->paginate(50)
+            'articles' => Article::with('user')->paginate(15)
         ]);
     }
 
@@ -52,34 +54,9 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-
-        if (
-            $request->input('content') &&
-            strlen($request->input('content')) < 500
-        ) {
-            $this->validate($request, [
-              'content' => 'required|min:140'
-            ]);
-
-            $input['title'] = 'Brève';
-        } else {
-            $this->validate($request, [
-              'title' => 'required|max:255',
-              'content' => 'required|max:5000'
-            ]);
-        }
-
-        $input['user_id'] = Auth::id();
-        $input['html_content'] = Markdown::parse($input['content']);
-        $input['excerpt'] = str_limit(
-            strip_tags(
-                $input['html_content']
-            ),
-            140
+        $article = Article::create(
+            $this->prepareInput($request)
         );
-
-        $article = Article::create($input);
 
         return redirect()->route('articles.show', [$article]);
     }
@@ -105,7 +82,9 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('articles.edit', [
+            'article' => $article
+        ]);
     }
 
     /**
@@ -117,7 +96,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $article->fill(
+            $this->prepareInput($request)
+        );
+        $article->save();
+
+        return redirect()->route('articles.show', [$article]);
     }
 
     /**
@@ -131,5 +115,51 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('articles.index');
+    }
+
+    public static function parseMarkdown(String $markdown)
+    {
+        return Markdown::parse($markdown);
+    }
+
+    public static function makeExcerpt(String $html)
+    {
+        return str_limit(
+            strip_tags($html),
+            140
+        );
+    }
+
+    /**
+     * Prepare the input from the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function prepareInput(Request $request)
+    {
+        $input = $request->all();
+
+        if (
+            $request->input('content') &&
+            strlen($request->input('content')) < 500
+        ) {
+            $this->validate($request, [
+              'content' => 'required|min:140'
+            ]);
+
+            $input['title'] = 'Brève';
+        } else {
+            $this->validate($request, [
+              'title' => 'required|max:255',
+              'content' => 'required|max:5000'
+            ]);
+        }
+
+        $input['user_id'] = Auth::id();
+        $input['html_content'] = self::parseMarkdown($input['content']);
+        $input['excerpt'] = self::makeExcerpt($input['html_content']);
+
+        return $input;
     }
 }

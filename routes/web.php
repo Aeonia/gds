@@ -24,6 +24,17 @@ Route::get('/logout', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('articles', 'ArticleController');
-Route::resource('users', 'UserController');
-Route::resource('issues', 'IssueController');
+Route::resource(
+    'articles',
+    'ArticleController'
+);
+Route::resource(
+    'users',
+    'UserController',
+    ['only' => ['index', 'show']]
+);
+Route::resource(
+    'issues',
+    'IssueController',
+    ['only' => ['index', 'show']]
+);

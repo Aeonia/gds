@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\ArticleController;
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
@@ -20,5 +22,24 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+$factory->define(App\Article::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->words(5, true),
+        'content' => $faker->text(600),
+        'html_content' => function (array $article) {
+            return ArticleController::parseMarkdown(
+                $article['content']
+            );
+        },
+        'excerpt' => function (array $article) {
+            return ArticleController::makeExcerpt(
+                $article['html_content']
+            );
+        },
+        'user_id' => function () {
+            return factory(App\User::class)->create()->id;
+        }
     ];
 });
