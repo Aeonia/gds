@@ -5,12 +5,12 @@
 @section('content')
   <article class="showing">
     @if (Auth::id() == $article->user->id)
-      <form class="next-to-title" method="post" action="{{ route('articles.destroy', $article->id) }}">
+      <form class="button-only next-to-title" method="post" action="{{ route('articles.destroy', $article->id) }}">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
         <button type="submit">supprimer</button>
       </form>
-      <form class="next-to-title" method="get" action="{{ route('articles.edit', $article->id) }}">
+      <form class="button-only next-to-title" method="get" action="{{ route('articles.edit', $article->id) }}">
         <button type="submit">éditer</button>
       </form>
     @endif
@@ -24,14 +24,14 @@
     @endcomponent
   </article>
   <aside class="comments">
-    @if (count($comments) > 0)
-      @foreach ($comments as $comment)
+    @if (count($article->comments) > 0)
+      @foreach ($article->comments as $comment)
         @include('comments.item')
       @endforeach
     @else
       @include('comments.no-items')
     @endif
-    {{-- @each('comments.item', $comments, 'comment', 'comments.no-items') --}}
+    {{-- @each('comments.item', $article->comments, 'comment', 'comments.no-items') --}}
     @if (Auth::check())
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
       <script>

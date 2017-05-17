@@ -43,7 +43,7 @@ body {
 }
 
 a {
-  color: #f00;
+  color: red;
 }
 
 a:hover {
@@ -119,7 +119,7 @@ main {
   max-width: $screen-sm-min;
 }
 
-form:not([class~=next-to-title]) {
+form:not([class~=button-only]) {
   @extend .flex-column;
   @extend .align-stretch;
 
@@ -199,6 +199,27 @@ article {
     .title {
       margin-top: -.5em;
     }
+  }
+}
+
+.votes {
+  @extend .flex-row;
+  @extend .align-center;
+
+  font-size: 1.4em;
+
+  button {
+    margin: 0 .5em;
+    border: solid 1px rgba(12, 13, 14, 0.15);
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+
+    background: #fafafb;
+  }
+
+  .voted {
+    border: solid 2px red;
   }
 }
 

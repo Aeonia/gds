@@ -3,7 +3,7 @@
 @section('title', 'Articles')
 
 @section('content')
-  <form class="next-to-title" method="get" action="{{ route('articles.create') }}">
+  <form class="button-only next-to-title" method="get" action="{{ route('articles.create') }}">
     <button type="submit">nouveau</button>
   </form>
   <h1 class="title">Articles</h1>

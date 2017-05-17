@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Auth;
@@ -72,10 +71,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         return view('articles.show', [
-            'article' => $article,
-            'comments' => Comment::where(
-                'article_id', $article->id
-            )->with('user')->get()
+            'article' => $article
         ]);
     }
 

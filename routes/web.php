@@ -41,6 +41,11 @@ Route::delete(
     'CommentController@destroy'
 )->name('comments.destroy');
 
+Route::put(
+    '/articles/{article_id}/votes',
+    'ArticleVoteController@update'
+)->name('votes.update');
+
 Route::resource(
     'users',
     'UserController',
