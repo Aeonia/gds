@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,8 @@ class ArticleController extends Controller
             'create',
             'store',
             'edit',
-            'update'
+            'update',
+            'destroy'
         ]]);
     }
 
@@ -70,7 +72,10 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         return view('articles.show', [
-            'article' => $article
+            'article' => $article,
+            'comments' => Comment::where(
+                'article_id', $article->id
+            )->with('user')->get()
         ]);
     }
 
@@ -96,10 +101,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        $article->fill(
-            $this->prepareInput($request)
-        );
-        $article->save();
+        if (Auth::id() == $article->id) {
+            $article->fill(
+                $this->prepareInput($request)
+            );
+            $article->save();
+        }
 
         return redirect()->route('articles.show', [$article]);
     }
@@ -112,7 +119,9 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->delete();
+        if ($article->id == Auth::id()) {
+            $article->delete();
+        }
 
         return redirect()->route('articles.index');
     }

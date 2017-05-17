@@ -3,14 +3,14 @@
 @section('title', 'Articles')
 
 @section('content')
-  <form class="next-to-title" action="{{ route('articles.create') }}" method="get">
+  <form class="next-to-title" method="get" action="{{ route('articles.create') }}">
     <button type="submit">nouveau</button>
   </form>
   <h1 class="title">Articles</h1>
 
   @each('articles.item', $articles, 'article', 'articles.no-items')
 
-  <nav>
+  <nav class="pagination">
     {{ $articles->links() }}
   </nav>
 @endsection

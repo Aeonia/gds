@@ -43,7 +43,7 @@
     </div>
 
     <div class="group">
-      <button type="submit">Envoyer</button>
+      <button type="submit">envoyer</button>
     </div>
   </form>
 @endsection

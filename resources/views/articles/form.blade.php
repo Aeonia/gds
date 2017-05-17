@@ -51,9 +51,9 @@
 
     <div class="markdown-preview" ng-bind-html="content | markdown"></div>
 
-    <div class="flex-row justify-space-around align-center">
-      <a href="{{ $cancel }}">Annuler</a>
-      <button type="submit">Envoyer</button>
+    <div class="row">
+      <a href="{{ $cancel }}">annuler</a>
+      <button type="submit">envoyer</button>
     </div>
   </form>
 @endsection

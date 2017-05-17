@@ -1,5 +1,6 @@
 @import 'common';
 @import 'flexbox';
+@import 'responsive';
 
 $color: #636b6f;
 $border-color: #e4e6e7;
@@ -12,19 +13,10 @@ body {
 
   color: $color;
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 14px;
-}
-
-p {
-  margin: 0;
-  line-height: 1.65;
 }
 
 .container {
-  box-sizing: border-box;
-  margin: auto;
   padding: 0 1em;
-  width: 100%;
 }
 
 .landing-title {
@@ -42,46 +34,10 @@ p {
   }
 }
 
-$screen-xs-min: 480px;
-
-$screen-sm-min: 768px;
-
 @media (min-width: $screen-sm-min) {
-
-  body {
-    font-size: 18px;
-  }
-
-  p {
-    line-height: 1.5;
-  }
-
-  .container {
-    width: 750px;
-  }
 
   .landing-title {
     font-size: 84px;
-  }
-
-}
-
-$screen-md-min: 992px;
-
-@media (min-width: $screen-md-min) {
-
-  .container {
-    width: 970px;
-  }
-
-}
-
-$screen-lg-min: 1200px;
-
-@media (min-width: $screen-lg-min) {
-
-  .container {
-    width: 1170px;
   }
 
 }
@@ -160,6 +116,7 @@ main {
   @extend .overflow-auto;
 
   padding-top: 1em;
+  max-width: $screen-sm-min;
 }
 
 form:not([class~=next-to-title]) {
@@ -187,7 +144,8 @@ form:not([class~=next-to-title]) {
 
   .row {
     @extend .flex-row;
-    @extend .justify-space-between;
+    @extend .justify-space-around;
+    @extend .align-center;
 
     margin-bottom: 1em;
   }
@@ -204,6 +162,8 @@ button {
 .pagination {
   @extend .flex-row;
   @extend .align-center;
+
+  padding: 1em 0;
 
   li {
     margin: 0 .5em;
@@ -226,24 +186,29 @@ button {
 }
 
 article {
+  padding: .5em;
 
-  &.showing .content {
-    padding: .5em;
-  }
+  border-bottom: solid 1px $border-color;
 
-  &:not(.showing) {
-    padding: .5em;
-  }
+  &.showing {
+    h1 {
+      margin-left: -.5em;
+      margin-bottom: .5em;
+    }
 
-  &:not(:first-of-type()) {
-    border-top: solid 1px $border-color;
+    .title {
+      margin-top: -.5em;
+    }
   }
 }
 
 .comments {
-  section {
+  max-width: $screen-xs-min;
+
+  section,
+  > p {
+    border-bottom: solid 1px $border-color;
     padding: .5em;
-    border-top: solid 1px $border-color;
 
     background: #fffbec;
   }
@@ -253,4 +218,16 @@ article {
   margin-bottom: 1em;
   border-top: dotted 1px $border-color;
   border-bottom: dotted 1px $border-color;
+}
+
+aside:not(.comments) {
+  @extend .flex-row;
+  @extend .justify-end;
+  @extend .align-center;
+
+  padding: .5em 0;
+
+  font-size: .8em;
+  font-style: italic;
+  font-weight: 700;
 }

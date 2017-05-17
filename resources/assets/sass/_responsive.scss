@@ -1,0 +1,51 @@
+$screen-xs-min: 480px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+body {
+  font-size: 14px;
+}
+
+p {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.container {
+  box-sizing: border-box;
+  margin: auto;
+  width: 100%;
+}
+
+@media (min-width: $screen-sm-min) {
+
+  body {
+    font-size: 18px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  .container {
+    width: 750px;
+  }
+
+}
+
+@media (min-width: $screen-md-min) {
+
+  .container {
+    width: 970px;
+  }
+
+}
+
+@media (min-width: $screen-lg-min) {
+
+  .container {
+    width: 1170px;
+  }
+
+}

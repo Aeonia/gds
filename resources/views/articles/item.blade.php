@@ -3,8 +3,8 @@
   <div class="excerpt">
     {{ $article->excerpt }}
   </div>
-  <aside>
-    {{ $article->user->name }}
-    {{ $article->created_at }}
-  </aside>
+  @component('components.post-aside', [
+    'post' => $article
+  ])
+  @endcomponent
 </article>

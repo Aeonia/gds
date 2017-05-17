@@ -22,17 +22,31 @@ Route::get('/logout', function () {
     return redirect()->route('root');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get(
+    '/home',
+    'HomeController@index'
+)->name('home');
 
 Route::resource(
     'articles',
     'ArticleController'
 );
+
+Route::post(
+    '/articles/{article_id}/comments',
+    'CommentController@store'
+)->name('comments.store');
+Route::delete(
+    '/articles/{article_id}/comments/{comment_id}',
+    'CommentController@destroy'
+)->name('comments.destroy');
+
 Route::resource(
     'users',
     'UserController',
     ['only' => ['index', 'show']]
 );
+
 Route::resource(
     'issues',
     'IssueController',
