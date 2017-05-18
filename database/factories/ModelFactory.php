@@ -21,7 +21,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'level' => 2,
+        'remember_token' => str_random(10)
     ];
 });
 $factory->define(App\Article::class, function (Faker\Generator $faker) {
@@ -48,7 +49,7 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
         'content' => $faker->text(120),
         'article_id' => function () {
             return factory(App\Article::class)->create([
-                'title' => 'Brève',
+                'title' => 'Bref',
                 'content' => Faker\Factory::create()->text(200)
             ])->id;
         },

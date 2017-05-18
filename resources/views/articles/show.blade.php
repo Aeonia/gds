@@ -4,12 +4,14 @@
 
 @section('content')
   <article class="showing">
-    @if (Auth::id() == $article->user->id)
+    @if (Auth::check() && Auth::user()->can('delete', $article))
       <form class="button-only next-to-title" method="post" action="{{ route('articles.destroy', $article->id) }}">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
         <button type="submit">supprimer</button>
       </form>
+    @endif
+    @if (Auth::check() && Auth::user()->can('update', $article))
       <form class="button-only next-to-title" method="get" action="{{ route('articles.edit', $article->id) }}">
         <button type="submit">éditer</button>
       </form>

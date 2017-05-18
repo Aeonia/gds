@@ -1,1 +1,1 @@
-<li>(Aucun article disponible)</li>
+<p>(Aucun article disponible)</p>

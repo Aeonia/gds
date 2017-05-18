@@ -79,11 +79,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = Article::create(
-            $this->prepareInput($request)
-        );
+        if (Auth::user()->can('create', Article::class)) {
+            $article = Article::create(
+                $this->prepareInput($request, Auth::id())
+            );
 
-        return redirect()->route('articles.show', [$article]);
+            return redirect()->route('articles.show', [$article]);
+        } else {
+            return redirect()->route('articles.index');
+        }
     }
 
     /**
@@ -121,9 +125,9 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        if (Auth::id() == $article->id) {
+        if (Auth::user()->can('update', $article)) {
             $article->fill(
-                $this->prepareInput($request)
+                $this->prepareInput($request, $article->user_id)
             );
             $article->save();
         }
@@ -139,7 +143,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        if ($article->id == Auth::id()) {
+        if (Auth::user()->can('delete', $article)) {
             $article->delete();
         }
 
@@ -163,9 +167,10 @@ class ArticleController extends Controller
      * Prepare the input from the given request.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  integer  $user_id
      * @return array
      */
-    protected function prepareInput(Request $request)
+    protected function prepareInput(Request $request, $user_id)
     {
         $input = $request->all();
 
@@ -177,7 +182,7 @@ class ArticleController extends Controller
               'content' => 'required|min:140'
             ]);
 
-            $input['title'] = 'Brève';
+            $input['title'] = 'Bref';
         } else {
             $this->validate($request, [
               'title' => 'required|max:255',
@@ -185,7 +190,7 @@ class ArticleController extends Controller
             ]);
         }
 
-        $input['user_id'] = Auth::id();
+        $input['user_id'] = $user_id;
         $input['html_content'] = self::parseMarkdown($input['content']);
         $input['excerpt'] = self::makeExcerpt($input['html_content']);
 

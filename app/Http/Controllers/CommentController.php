@@ -27,16 +27,18 @@ class CommentController extends Controller
      */
     public function store(Request $request, $article_id)
     {
-        $input = $request->all();
+        if (Auth::user()->can('create', Comment::class)) {
+            $input = $request->all();
 
-        $this->validate($request, [
-          'content' => 'required|min:15|max:140'
-        ]);
+            $this->validate($request, [
+              'content' => 'required|min:15|max:140'
+            ]);
 
-        $input['article_id'] = $article_id;
-        $input['user_id'] = Auth::id();
+            $input['article_id'] = $article_id;
+            $input['user_id'] = Auth::id();
 
-        Comment::create($input);
+            Comment::create($input);
+        }
 
         return redirect()->route('articles.show', [$article_id]);
     }
@@ -53,7 +55,7 @@ class CommentController extends Controller
     {
         $comment = Comment::find($comment_id);
 
-        if ($comment && $comment->user->id == Auth::id()) {
+        if (Auth::user()->can('delete', $comment)) {
             $comment->delete();
         }
 
