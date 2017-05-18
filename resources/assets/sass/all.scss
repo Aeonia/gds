@@ -3,7 +3,9 @@
 @import 'responsive';
 
 $color: #636b6f;
-$border-color: #e4e6e7;
+$secondary-color: #fafafb;
+$border-color: rgba(12,13,14,.15);
+$hover-color: rgba(239,240,241,0.75);
 
 body {
   @extend .flex-column;
@@ -50,9 +52,30 @@ a:hover {
   text-decoration: none;
 }
 
+a.sort {
+  margin-right: .3em;
+  padding: 0 .5em;
+
+  color: initial;
+  text-decoration: none;
+
+  &.chosen {
+    position: relative;
+    z-index: 1;
+
+    background: white;
+    border: solid 1px $border-color;
+    border-bottom: none;
+  }
+
+  &:not(.chosen):hover {
+    background: $hover-color;
+  }
+}
+
 .gds-nav-bar {
-  background: #fafafb;
-  box-shadow: 0 1px 0 rgba(12,13,14,.15);
+  background: $secondary-color;
+  box-shadow: 0 1px 0 $border-color;
   font-size: .8em;
 
   ul {
@@ -97,7 +120,7 @@ a:hover {
   }
 
   a:hover {
-    background-color: rgba(239,240,241,0.75);
+    background-color: $hover-color;
   }
 }
 
@@ -156,7 +179,19 @@ form:not([class~=button-only]) {
 }
 
 button {
+  margin: 0 .2em;
+  border: solid 1px $border-color;
+  border-radius: 0;
+  min-width: 2em;
+  height: 2em;
+
+  background: $secondary-color;
   font-family: 'Open Sans Condensed', sans-serif;
+  font-size: .9em;
+}
+
+button:hover {
+  background: $hover-color;
 }
 
 .pagination {
@@ -190,6 +225,10 @@ article {
 
   border-bottom: solid 1px $border-color;
 
+  &:not(.showing):first-of-type {
+    border-top: solid 1px $border-color;
+  }
+
   &.showing {
     h1 {
       margin-left: -.5em;
@@ -209,17 +248,14 @@ article {
   font-size: 1.4em;
 
   button {
-    margin: 0 .5em;
-    border: solid 1px rgba(12, 13, 14, 0.15);
     border-radius: 50%;
-    width: 2em;
-    height: 2em;
-
-    background: #fafafb;
   }
 
   .voted {
     border: solid 2px red;
+
+    color: red;
+    font-weight: 700;
   }
 }
 

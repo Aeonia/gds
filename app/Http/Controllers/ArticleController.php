@@ -28,13 +28,37 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('articles.index', [
-            'articles' => Article::with('user')->paginate(15)
-        ]);
+        $sort = $request->cookie('sort');
+
+        if ($request->has('sort')) {
+            $sort =  $request->input('sort');
+        }
+
+        switch ($sort) {
+            case 'votes':
+                $order_by = 'vote_count';
+                break;
+            case 'newest':
+            default:
+                $order_by = 'updated_at';
+                break;
+        }
+
+        return response(
+            view('articles.index', [
+                'articles' => Article::with('user')->orderBy(
+                    $order_by, 'desc'
+                )->paginate(15),
+                'sort' => $sort
+            ])
+        )->cookie(
+            'sort', $sort, 60*24*7
+        );
     }
 
     /**

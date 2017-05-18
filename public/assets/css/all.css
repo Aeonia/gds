@@ -186,6 +186,25 @@ a:hover {
   text-decoration: none;
 }
 
+a.sort {
+  margin-right: .3em;
+  padding: 0 .5em;
+  color: initial;
+  text-decoration: none;
+}
+
+a.sort.chosen {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border: solid 1px rgba(12, 13, 14, 0.15);
+  border-bottom: none;
+}
+
+a.sort:not(.chosen):hover {
+  background: rgba(239, 240, 241, 0.75);
+}
+
 .gds-nav-bar {
   background: #fafafb;
   box-shadow: 0 1px 0 rgba(12, 13, 14, 0.15);
@@ -255,7 +274,18 @@ form:not([class~=button-only]) .help-block {
 }
 
 button {
+  margin: 0 .2em;
+  border: solid 1px rgba(12, 13, 14, 0.15);
+  border-radius: 0;
+  min-width: 2em;
+  height: 2em;
+  background: #fafafb;
   font-family: 'Open Sans Condensed', sans-serif;
+  font-size: .9em;
+}
+
+button:hover {
+  background: rgba(239, 240, 241, 0.75);
 }
 
 .pagination {
@@ -279,7 +309,11 @@ button {
 
 article {
   padding: .5em;
-  border-bottom: solid 1px #e4e6e7;
+  border-bottom: solid 1px rgba(12, 13, 14, 0.15);
+}
+
+article:not(.showing):first-of-type {
+  border-top: solid 1px rgba(12, 13, 14, 0.15);
 }
 
 article.showing h1 {
@@ -296,16 +330,13 @@ article.showing .title, article.showing .next-to-title {
 }
 
 .votes button {
-  margin: 0 .5em;
-  border: solid 1px rgba(12, 13, 14, 0.15);
   border-radius: 50%;
-  width: 2em;
-  height: 2em;
-  background: #fafafb;
 }
 
 .votes .voted {
   border: solid 2px red;
+  color: red;
+  font-weight: 700;
 }
 
 .comments {
@@ -314,15 +345,15 @@ article.showing .title, article.showing .next-to-title {
 
 .comments section,
 .comments > p {
-  border-bottom: solid 1px #e4e6e7;
+  border-bottom: solid 1px rgba(12, 13, 14, 0.15);
   padding: .5em;
   background: #fffbec;
 }
 
 .markdown-preview {
   margin-bottom: 1em;
-  border-top: dotted 1px #e4e6e7;
-  border-bottom: dotted 1px #e4e6e7;
+  border-top: dotted 1px rgba(12, 13, 14, 0.15);
+  border-bottom: dotted 1px rgba(12, 13, 14, 0.15);
 }
 
 aside:not(.comments) {
