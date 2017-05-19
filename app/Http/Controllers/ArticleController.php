@@ -150,12 +150,12 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-    public static function parseMarkdown(String $markdown)
+    public static function parseMarkdown($markdown)
     {
         return Markdown::parse($markdown);
     }
 
-    public static function makeExcerpt(String $html)
+    public static function makeExcerpt($html)
     {
         return str_limit(
             strip_tags($html),
