@@ -4,12 +4,12 @@
 
   tasks:
 
-    - name: Update gds staging branch
+    - name: Update gds master branch
       git:
         accept_hostkey: yes
         dest: /var/www/gds
         repo: 'git@gitlab.simplon.space:simplonco/gds.git'
-        version: staging
+        version: master
       notify:
         - composer install
         - npm install
