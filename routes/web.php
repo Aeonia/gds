@@ -55,5 +55,5 @@ Route::resource(
 Route::resource(
     'issues',
     'IssueController',
-    ['only' => ['index', 'show']]
+    ['only' => ['index']]
 );
