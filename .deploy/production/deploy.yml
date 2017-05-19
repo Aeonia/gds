@@ -46,7 +46,7 @@
       with_items:
         - 'php artisan storage:link'
         - 'php artisan key:generate'
-        - 'php artisan migrate'
+        - 'php artisan migrate --force'
 
     - name: reload nginx
       docker_container:
