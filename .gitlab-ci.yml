@@ -1,0 +1,9 @@
+stages:
+  - deploy
+
+deploy_staging:
+  stage: deploy
+  script:
+    - "ansible-playbook .deploy/production/deploy.yml -i .deploy/production/inventory"
+  only:
+    - master
