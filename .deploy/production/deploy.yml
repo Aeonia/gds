@@ -1,0 +1,55 @@
+---
+- hosts: preprod.simplon.space
+
+
+  tasks:
+
+    - name: Update gds staging branch
+      git:
+        accept_hostkey: yes
+        dest: /var/www/gds
+        repo: 'git@gitlab.simplon.space:simplonco/gds.git'
+        version: staging
+      notify:
+        - composer install
+        - npm install
+        - php artisan
+
+    - name: Copy .env file
+      copy:
+        src: env
+        dest: /var/www/gds/.env
+
+    - name: Setup nginx vhost
+      copy:
+        src: nginx.conf
+        dest: /srv/nginx/conf.d/gds.simplon.space.conf
+      notify:
+        - reload nginx
+
+  handlers:
+
+    - name: composer install
+      command: composer install
+      args:
+        chdir: /var/www/gds
+
+    - name: npm install
+      command: npm install
+      args:
+        chdir: /var/www/gds
+
+    - name: php artisan
+      command: '{{ item }}'
+      args:
+        chdir: /var/www/gds
+      with_items:
+        - 'php artisan storage:link'
+        - 'php artisan key:generate'
+        - 'php artisan migrate'
+
+    - name: reload nginx
+      docker_container:
+        name: nginx
+        state: started
+        restart: yes
