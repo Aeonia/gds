@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\User;
-use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -46,13 +45,25 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can upgrade the user.
+     *
+     * @param  \App\User  $user
+     * @param  \App\User  $user2
+     * @return mixed
+     */
+    public function upgrade(User $user, User $user2)
+    {
+        return false;
+    }
+
+    /**
      * Determine whether the user can delete the user.
      *
      * @param  \App\User  $user
      * @param  \App\User  $user2
      * @return mixed
      */
-    public function delete(User $user, User $user)
+    public function delete(User $user, User $user2)
     {
         return $user->id == $user2->id;
     }

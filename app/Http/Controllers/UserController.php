@@ -4,9 +4,22 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => [
+            'update'
+        ]]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,5 +43,24 @@ class UserController extends Controller
         return view('users.show', [
             'user' => $user
         ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        if ($request->has('level')) {
+            if (Auth::user()->can('upgrade', $user)) {
+                $user->fill($request->all());
+                $user->save();
+            }
+        }
+
+        return redirect()->route('users.show', [$user]);
     }
 }
