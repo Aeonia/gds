@@ -49,7 +49,7 @@ Route::put(
 Route::resource(
     'users',
     'UserController',
-    ['only' => ['index', 'show']]
+    ['only' => ['index', 'show', 'update']]
 );
 
 Route::resource(
