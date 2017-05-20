@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@extends('title', 'Reset password')
+@section('title', 'Reset password')
 
 @section('content')
   @if (session('status'))

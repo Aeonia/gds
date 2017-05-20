@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@extends('title', 'Reset password')
+@section('title', 'Reset password')
 
 @section('content')
   @if (session('status'))
@@ -11,7 +11,7 @@
     {{ csrf_field() }}
 
     <div class="group{{ $errors->has('email') ? ' has-error' : '' }}">
-      <label for="email">Adresse e-mail :</label>
+      <label for="email">Adresse e-mail</label>
 
       <input id="email" type="email" name="email" value="{{ old('email') }}" required>
 
