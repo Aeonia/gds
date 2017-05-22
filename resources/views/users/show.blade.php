@@ -18,4 +18,7 @@
     </form>
   @endif
   <h1 class="title">{{ $user->name }}</h1>
+  @if (Auth::check() && Auth::user()->can('update', $user))
+    <a href="{{ route('users.edit', $user->id) }}">éditer</a>
+  @endif
 @endsection

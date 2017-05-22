@@ -46,6 +46,19 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        return view('users.edit', [
+            'user' => $user
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,6 +72,9 @@ class UserController extends Controller
                 $user->fill($request->all());
                 $user->save();
             }
+        } elseif (Auth::user()->can('update', $user)) {
+            $user->fill($request->all());
+            $user->save();
         }
 
         return redirect()->route('users.show', [$user]);
