@@ -7,6 +7,18 @@ nav li {
   display: inline-block;
 }
 
+code {
+  display: inline-block;
+  padding: .1em .2em;
+  background: #dfe0e1;
+  font-size: .8rem;
+}
+
+pre code {
+  display: block;
+  padding: 1em;
+}
+
 .clear-both {
   clear: both;
 }
