@@ -30,4 +30,12 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['deleted_at'];
+
+    /**
+     * Get the notifications for the user.
+     */
+    public function notifications()
+    {
+        return $this->hasMany('App\Notification');
+    }
 }

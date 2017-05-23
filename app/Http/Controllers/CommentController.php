@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Events\ArticleCommented;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,9 @@ class CommentController extends Controller
             $input['article_id'] = $article_id;
             $input['user_id'] = Auth::id();
 
-            Comment::create($input);
+            $comment = Comment::create($input);
+
+            event(new ArticleCommented($comment->article));
         }
 
         return redirect()->route('articles.show', [$article_id]);

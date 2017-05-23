@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function view(User $user, User $user2)
     {
-        return true;
+        return $user->id == $user2->id;
     }
 
     /**

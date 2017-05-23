@@ -55,5 +55,5 @@ Route::resource(
 Route::resource(
     'issues',
     'IssueController',
-    ['only' => ['index']]
+    ['only' => ['index', 'show', 'create', 'store']]
 );

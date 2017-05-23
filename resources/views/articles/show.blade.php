@@ -26,15 +26,8 @@
     @endcomponent
   </article>
   <aside class="comments">
-    @if (count($article->comments) > 0)
-      @foreach ($article->comments as $comment)
-        @include('comments.item')
-      @endforeach
-    @else
-      @include('comments.no-items')
-    @endif
-    {{-- @each('comments.item', $article->comments, 'comment', 'comments.no-items') --}}
-    @if (Auth::check())
+    @each('comments.item', $article->comments, 'comment', 'comments.no-items')
+    @if (Auth::check() && Auth::user()->can('create', App\Comment::class))
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
       <script>
         angular.module('commentApp', [])

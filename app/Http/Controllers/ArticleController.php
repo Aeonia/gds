@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Events\ArticleEdited;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Auth;
@@ -68,7 +69,11 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        if (Auth::user()->can('create', Article::class)) {
+            return view('articles.create');
+        } else {
+            return view('no-permissions');
+        }
     }
 
     /**
@@ -130,6 +135,8 @@ class ArticleController extends Controller
                 $this->prepareInput($request, $article->user_id)
             );
             $article->save();
+
+            event(new ArticleEdited($article));
         }
 
         return redirect()->route('articles.show', [$article]);

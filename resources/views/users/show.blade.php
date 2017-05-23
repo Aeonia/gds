@@ -21,4 +21,10 @@
   @if (Auth::check() && Auth::user()->can('update', $user))
     <a href="{{ route('users.edit', $user->id) }}">éditer</a>
   @endif
+  @if (Auth::check() && Auth::user()->can('view', $user))
+    <section>
+      <h2 class="title">Depuis ma dernière connexion</h2>
+      @each('notifications.item', $user->notifications()->orderBy('created_at', 'desc'), 'notification', 'notifications.no-items')
+    </section>
+  @endif
 @endsection
