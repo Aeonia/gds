@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Events\ArticleEdited;
+use App\Events\ArticleChanged;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Auth;
@@ -136,7 +136,12 @@ class ArticleController extends Controller
             );
             $article->save();
 
-            event(new ArticleEdited($article));
+            event(
+                new ArticleChanged(
+                    $article,
+                    Auth::user()->name . ' a édité'
+                )
+            );
         }
 
         return redirect()->route('articles.show', [$article]);

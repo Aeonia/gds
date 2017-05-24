@@ -13,11 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\ArticleEdited' => [
-            'App\Listeners\onArticleEdited',
-        ],
-        'App\Events\ArticleCommented' => [
-            'App\Listeners\onArticleCommented',
+        'App\Events\ArticleChanged' => [
+            'App\Listeners\onArticleChanged'
         ]
     ];
 

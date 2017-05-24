@@ -3,12 +3,12 @@
 namespace App\Listeners;
 
 use App\Notification;
-use App\Events\ArticleEdited;
+use App\Events\ArticleChanged;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Auth;
 
-class onArticleEdited
+class onArticleChanged
 {
     /**
      * Create the event listener.
@@ -23,10 +23,10 @@ class onArticleEdited
     /**
      * Handle the event.
      *
-     * @param  ArticleEdited  $event
+     * @param  ArticleChanged  $event
      * @return void
      */
-    public function handle(ArticleEdited $event)
+    public function handle(ArticleChanged $event)
     {
         $notified = [];
 
@@ -34,7 +34,7 @@ class onArticleEdited
 
         $parameters = [
             'article_id' => $event->article->id,
-            'content' => $user->name.' a édité'
+            'content' => $event->message
         ];
 
         if (
