@@ -1,1 +1,1 @@
-<p>(Rien de nouveau)</p>
+<p>(Rien à déclarer)</p>

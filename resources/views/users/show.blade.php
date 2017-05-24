@@ -23,8 +23,8 @@
   @endif
   @if (Auth::check() && Auth::user()->can('view', $user))
     <section>
-      <h2 class="title">Depuis ma dernière connexion</h2>
-      @each('notifications.item', $user->notifications()->orderBy('created_at', 'desc'), 'notification', 'notifications.no-items')
+      <h2 class="title">Mes notifications</h2>
+      @each('notifications.item', $user->notifications->sortByDesc('created_at'), 'notification', 'notifications.no-items')
     </section>
   @endif
 @endsection
