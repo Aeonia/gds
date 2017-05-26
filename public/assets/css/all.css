@@ -1,10 +1,7 @@
 nav ul {
   margin: 0;
   padding: 0;
-}
-
-nav li {
-  display: inline-block;
+  list-style-type: none;
 }
 
 code {
@@ -56,13 +53,13 @@ pre code {
   text-align: right;
 }
 
-.flex-container, .flex-row, .gds-nav-bar ul, .gds-nav-bar a, form:not([class~=button-only]) .row, .pagination, .votes, aside:not(.comments), .flex-column, body, .landing-title, form:not([class~=button-only]), form:not([class~=button-only]) .group, .perfect-center, .gds-nav-bar .right {
+.flex-container, .flex-row, .gds-nav-bar ul, .gds-nav-bar li, form:not([class~=button-only]) .row, .pagination, .votes, aside:not(.comments), .flex-column, body, .landing-title, form:not([class~=button-only]), form:not([class~=button-only]) .group, .perfect-center {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.flex-row, .gds-nav-bar ul, .gds-nav-bar a, form:not([class~=button-only]) .row, .pagination, .votes, aside:not(.comments) {
+.flex-row, .gds-nav-bar ul, .gds-nav-bar li, form:not([class~=button-only]) .row, .pagination, .votes, aside:not(.comments) {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -111,7 +108,7 @@ pre code {
           align-items: flex-start;
 }
 
-.align-center, .perfect-center, .landing-title, .gds-nav-bar ul, .gds-nav-bar a, form:not([class~=button-only]) .row, .pagination, .votes, aside:not(.comments) {
+.align-center, .perfect-center, .landing-title, .gds-nav-bar ul, .gds-nav-bar li, form:not([class~=button-only]) .row, .pagination, .votes, aside:not(.comments) {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -224,11 +221,13 @@ a.sort:not(.chosen):hover {
 }
 
 .gds-nav-bar a {
+  display: inline-block;
   padding: .5em 1em;
   height: 2.5em;
   color: #636b6f;
   font-weight: 700;
   letter-spacing: .1rem;
+  line-height: 2.5em;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -373,4 +372,22 @@ aside:not(.comments) {
   font-size: .8em;
   font-style: italic;
   font-weight: 700;
+}
+
+.status::before {
+  content: '(';
+}
+
+.status::after {
+  content: ')';
+}
+
+.status.pending-publication {
+  color: orange;
+  text-decoration: none;
+}
+
+.status.published {
+  color: green;
+  text-decoration: none;
 }

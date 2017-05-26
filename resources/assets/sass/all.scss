@@ -84,24 +84,27 @@ a.sort {
     @extend .align-center;
   }
 
+  li {
+    @extend .flex-row;
+    @extend .align-center;
+  }
+
   .right {
     @extend .flex-1;
-    @extend .flex-container;
     @extend .justify-end;
   }
 
   $a_height: 2.5em;
 
   a {
-    @extend .flex-row;
-    @extend .align-center;
-
+    display: inline-block;
     padding: .5em 1em;
     height: $a_height;
 
     color: $color;
     font-weight: 700;
     letter-spacing: .1rem;
+    line-height: $a_height;
     text-decoration: none;
     text-transform: uppercase;
   }
@@ -288,3 +291,24 @@ aside:not(.comments) {
   font-style: italic;
   font-weight: 700;
 }
+
+.status {
+  &::before {
+    content: '(';
+  }
+
+  &::after {
+    content: ')';
+  }
+
+  &.pending-publication {
+    color: orange;
+    text-decoration: none;
+  }
+
+  &.published {
+    color: green;
+    text-decoration: none;
+  }
+}
+
