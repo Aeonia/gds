@@ -30,8 +30,6 @@ class onArticleChanged
     {
         $notified = [];
 
-        $user = $event->article->comments->last()->user;
-
         $parameters = [
             'article_id' => $event->article->id,
             'content' => $event->message

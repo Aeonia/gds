@@ -23,7 +23,7 @@ class ArticleChanged
      *
      * @return void
      */
-    public function __construct(Article $article, string $message)
+    public function __construct(Article $article, $message)
     {
         $this->article = $article;
         $this->message = $message;
