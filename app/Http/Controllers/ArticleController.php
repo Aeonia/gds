@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\ArticleIssue;
+use App\Issue;
 use App\Events\ArticleChanged;
 use Illuminate\Http\Request;
-use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
@@ -17,13 +18,10 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['only' => [
-            'create',
-            'store',
-            'edit',
-            'update',
-            'destroy'
-        ]]);
+        $this->middleware('auth')->except([
+            'index',
+            'show'
+        ]);
     }
 
     /**
@@ -162,17 +160,66 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-    public static function parseMarkdown($markdown)
+    /**
+     * Create a link with the next issue,
+     * making the article flagged as published.
+     *
+     * @param  $article_id
+     * @return \Illuminate\Http\Response
+     */
+    public function publish($article_id)
     {
-        return Markdown::parse($markdown);
+        $article = Article::findOrFail($article_id);
+
+        if (Auth::user()->can('publish', $article)) {
+            $issue = Issue::firstOrCreate(['published_at' => null]);
+
+            ArticleIssue::updateOrCreate([
+                'article_id' => $article->id,
+                'issue_id' => $issue->id
+            ]);
+
+            event(
+                new ArticleChanged(
+                    $article,
+                    Auth::user()->name . " a sélectionné l'article pour la prochaine publication"
+                )
+            );
+        }
+
+        return redirect()->route('articles.show', [$article]);
     }
 
-    public static function makeExcerpt($html)
+    /**
+     * Destroy the link with this article's issue,
+     * making the article flagged as unpublished.
+     *
+     * @param  $article_id
+     * @return \Illuminate\Http\Response
+     */
+    public function unpublish($article_id)
     {
-        return str_limit(
-            strip_tags($html),
-            140
-        );
+        $article = Article::findOrFail($article_id);
+        $issue = $article->issue();
+
+        if (
+            Auth::user()->can('publish', $article) &&
+            $issue
+        ) {
+            ArticleIssue::where([
+                'article_id' => $article->id,
+                'issue_id' => $issue->id
+            ])->delete();
+
+            event(
+                new ArticleChanged(
+                    $article,
+                    Auth::user()->name . " a désélectionné l'article pour la prochaine publication"
+                )
+            );
+        }
+
+        return redirect()->route('articles.show', [$article]);
     }
 
     /**
@@ -203,8 +250,8 @@ class ArticleController extends Controller
         }
 
         $input['user_id'] = $user_id;
-        $input['html_content'] = self::parseMarkdown($input['content']);
-        $input['excerpt'] = self::makeExcerpt($input['html_content']);
+        $input['html_content'] = Article::parseMarkdown($input['content']);
+        $input['excerpt'] = Article::makeExcerpt($input['html_content']);
 
         return $input;
     }

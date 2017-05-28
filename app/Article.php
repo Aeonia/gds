@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Mail\Markdown;
 
 class Article extends Model
 {
@@ -49,15 +50,36 @@ class Article extends Model
      */
     public function voteValue($user_id)
     {
- /*       $vote = Vote::where([
+        $vote = Vote::where([
             ['article_id', $this->id],
             ['user_id', $user_id]
         ])->first();
 
         if ($vote) {
             return $vote->value;
-        } else*/ {
+        } else {
             return 0;
         }
+    }
+
+    /**
+     * Get the issue for the article.
+     */
+    public function issue()
+    {
+        return $this->belongsToMany('App\Issue')->first();
+    }
+
+    public static function parseMarkdown($markdown)
+    {
+        return Markdown::parse($markdown);
+    }
+
+    public static function makeExcerpt($html)
+    {
+        return str_limit(
+            strip_tags($html),
+            140
+        );
     }
 }

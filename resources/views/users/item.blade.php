@@ -1,1 +1,1 @@
-<li><a href="{{ route('users.index') }}/{{ $user->id }}">{{ $user->name }}</a></li>
+<li><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></li>

@@ -1,4 +1,4 @@
-@if (Auth::check())
+@if (Auth::check() && !$post->issue())
   <form class="button-only" method="post" action="{{ route('votes.update', $post->id) }}">
     {{ csrf_field() }}
     {{ method_field('PUT') }}

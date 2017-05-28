@@ -27,11 +27,6 @@ Route::get(
     'HomeController@index'
 )->name('home');
 
-Route::resource(
-    'articles',
-    'ArticleController'
-);
-
 Route::post(
     '/articles/{article_id}/comments',
     'CommentController@store'
@@ -45,6 +40,20 @@ Route::put(
     '/articles/{article_id}/votes',
     'VoteController@update'
 )->name('votes.update');
+
+Route::get(
+    '/articles/{article_id}/publish',
+    'ArticleController@publish'
+)->name('articles.publish');
+Route::get(
+    '/articles/{article_id}/unpublish',
+    'ArticleController@unpublish'
+)->name('articles.unpublish');
+
+Route::resource(
+    'articles',
+    'ArticleController'
+);
 
 Route::resource(
     'users',

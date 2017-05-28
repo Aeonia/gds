@@ -4,19 +4,41 @@
 
 @section('content')
   <article class="showing">
-    @if (Auth::check() && Auth::user()->can('delete', $article))
-      <form class="button-only next-to-title" method="post" action="{{ route('articles.destroy', $article->id) }}">
-        {{ csrf_field() }}
-        {{ method_field('DELETE') }}
-        <button type="submit">supprimer</button>
-      </form>
+    @if ($article->issue())
+      @if (Auth::check() && Auth::user()->can('publish', $article))
+        <form class="button-only next-to-title" method="get" action="{{ route('articles.unpublish', $article->id) }}">
+          <button type="submit">dépublier</button>
+        </form>
+      @endif
+    @else
+      @if (Auth::check() && Auth::user()->can('delete', $article))
+        <form class="button-only next-to-title" method="post" action="{{ route('articles.destroy', $article->id) }}">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <button type="submit">supprimer</button>
+        </form>
+      @endif
+      @if (Auth::check() && Auth::user()->can('update', $article))
+        <form class="button-only next-to-title" method="get" action="{{ route('articles.edit', $article->id) }}">
+          <button type="submit">éditer</button>
+        </form>
+      @endif
+      @if (Auth::check() && Auth::user()->can('publish', $article))
+        <form class="button-only next-to-title" method="get" action="{{ route('articles.publish', $article->id) }}">
+          <button type="submit">publier</button>
+        </form>
+      @endif
     @endif
-    @if (Auth::check() && Auth::user()->can('update', $article))
-      <form class="button-only next-to-title" method="get" action="{{ route('articles.edit', $article->id) }}">
-        <button type="submit">éditer</button>
-      </form>
-    @endif
-    <h1 class="title">{{ $article->title }}</h1>
+    <h1 class="title">
+      {{ $article->title }}
+      @if ($article->issue())
+        @if ($article->issue()->published_at)
+          <span class="status published">publié le {{ $article->issue()->published_at }}</span>
+        @else
+          <span class="status pending-publication">en attente de publication</span>
+        @endif
+      @endif
+    </h1>
     <div class="content">
       {!! $article->html_content !!}
     </div>
@@ -27,7 +49,7 @@
   </article>
   <aside class="comments">
     @each('comments.item', $article->comments, 'comment', 'comments.no-items')
-    @if (Auth::check() && Auth::user()->can('create', App\Comment::class))
+    @if (!$article->issue() && Auth::check() && Auth::user()->can('create', App\Comment::class))
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
       <script>
         angular.module('commentApp', [])

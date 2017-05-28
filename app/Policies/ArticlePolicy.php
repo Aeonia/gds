@@ -46,6 +46,18 @@ class ArticlePolicy
     }
 
     /**
+     * Determine whether the user can publish the article.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Article  $article
+     * @return mixed
+     */
+    public function publish(User $user, Article $article)
+    {
+        return false;
+    }
+
+    /**
      * Determine whether the user can delete the article.
      *
      * @param  \App\User  $user
