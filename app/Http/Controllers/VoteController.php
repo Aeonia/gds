@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ArticleVote;
+use App\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ArticleVoteController extends Controller
+class VoteController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -35,7 +35,7 @@ class ArticleVoteController extends Controller
             $input['value'] = -1;
         }
 
-        $vote = ArticleVote::where([
+        $vote = Vote::where([
             ['article_id', $article_id],
             ['user_id', Auth::id()]
         ])->first();
@@ -51,7 +51,7 @@ class ArticleVoteController extends Controller
             $input['article_id'] = $article_id;
             $input['user_id'] = Auth::id();
 
-            $vote = ArticleVote::create($input);
+            $vote = Vote::create($input);
         }
 
         $vote_count = 0;

@@ -43,7 +43,7 @@ Route::delete(
 
 Route::put(
     '/articles/{article_id}/votes',
-    'ArticleVoteController@update'
+    'VoteController@update'
 )->name('votes.update');
 
 Route::resource(

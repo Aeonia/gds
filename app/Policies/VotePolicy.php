@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\ArticleVote;
+use App\Vote;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ArticleVotePolicy
+class VotePolicy
 {
     use HandlesAuthorization;
 
@@ -14,10 +14,10 @@ class ArticleVotePolicy
      * Determine whether the user can view the vote.
      *
      * @param  \App\User  $user
-     * @param  \App\ArticleVote  $vote
+     * @param  \App\Vote  $vote
      * @return mixed
      */
-    public function view(User $user, ArticleVote $vote)
+    public function view(User $user, Vote $vote)
     {
         return true;
     }
@@ -37,10 +37,10 @@ class ArticleVotePolicy
      * Determine whether the user can update the vote.
      *
      * @param  \App\User  $user
-     * @param  \App\ArticleVote  $vote
+     * @param  \App\Vote  $vote
      * @return mixed
      */
-    public function update(User $user, ArticleVote $vote)
+    public function update(User $user, Vote $vote)
     {
         return $user->id == $vote->user_id;
     }
@@ -49,10 +49,10 @@ class ArticleVotePolicy
      * Determine whether the user can delete the vote.
      *
      * @param  \App\User  $user
-     * @param  \App\ArticleVote  $vote
+     * @param  \App\Vote  $vote
      * @return mixed
      */
-    public function delete(User $user, ArticleVote $vote)
+    public function delete(User $user, Vote $vote)
     {
         return $user->id == $vote->user_id;
     }

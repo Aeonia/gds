@@ -41,7 +41,7 @@ class Article extends Model
      */
     public function votes()
     {
-        return $this->hasMany('App\ArticleVote');
+        return $this->hasMany('App\Vote');
     }
 
     /**
@@ -49,14 +49,14 @@ class Article extends Model
      */
     public function voteValue($user_id)
     {
-        $vote = ArticleVote::where([
+ /*       $vote = Vote::where([
             ['article_id', $this->id],
             ['user_id', $user_id]
         ])->first();
 
         if ($vote) {
             return $vote->value;
-        } else {
+        } else*/ {
             return 0;
         }
     }
