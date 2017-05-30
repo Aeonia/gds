@@ -48,7 +48,26 @@
     @endcomponent
   </article>
   <aside class="comments">
-    @each('comments.item', $article->comments, 'comment', 'comments.no-items')
+    @forelse ($article->comments as $comment)
+      @if (Auth::check() && Auth::user()->can('delete', $comment))
+        <form class="button-only next-to-title" method="post" action="{{ route('comments.destroy', ['article_id' => $comment->article->id, 'comment_id' => $comment->id]) }}">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <button type="submit">supprimer</button>
+        </form>
+      @endif
+      <section>
+        <div class="content">
+          {{ $comment->content }}
+        </div>
+        @component('components.post-aside', [
+          'post' => $comment
+        ])
+        @endcomponent
+      </section>
+    @empty
+      <p>(Aucun commentaire)</p>
+    @endforelse
     @if (!$article->issue() && Auth::check() && Auth::user()->can('create', App\Comment::class))
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
       <script>

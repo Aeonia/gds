@@ -116,15 +116,25 @@ class IssueController extends Controller
             $rows[] = [];
 
             $article = (object)[];
-            $article->col = 1;
             $article->content = (object)[];
             $article->content->title = 'Bref';
             $article->content->sections = [];
 
+            $padding_length = 0;
+
             while ($j < count($news)) {
+                $padding_length += strlen($news[$j]->content);
                 $article->content->sections[] = $news[$j];
 
                 ++$j;
+            }
+
+            if ($padding_length < 400) {
+                $article->col = 1;
+            } elseif ($padding_length < 800) {
+                $article->col = 2;
+            } else {
+                $article->col = 3;
             }
 
             $rows[count($rows)-1][] = $article;

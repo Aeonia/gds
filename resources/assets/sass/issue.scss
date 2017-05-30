@@ -164,7 +164,7 @@ article {
   .title {
     @extend .text-center;
 
-    min-height: 2.5em;
+    margin-bottom: .5em;
   }
 
   aside {
@@ -178,6 +178,10 @@ article {
 
 .row {
   @extend .flex-column;
+
+  margin-bottom: 1em;
+  border-bottom: solid 2px black;
+  padding-bottom: 1em;
 }
 
 .col {

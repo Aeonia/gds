@@ -11,7 +11,11 @@
   <h1 class="title">Publications</h1>
 
   <ul>
-    @each('issues.item', $issues, 'issue', 'issues.no-items')
+    @forelse ($issues as $issue)
+      <li><a href="{{ route('issues.show', $issue->id) }}">{{ $issue->published_at }}</a></li>
+    @empty
+      <li>(Aucune publication disponible)</li>
+    @endforelse
   </ul>
 
   <nav>

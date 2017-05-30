@@ -282,12 +282,18 @@ header aside p {
 }
 
 article .title, article header .next-to-title, header article .next-to-title {
-  min-height: 2.5em;
+  margin-bottom: .5em;
 }
 
 article aside {
   margin: .5em 0;
   font-weight: 700;
+}
+
+.row {
+  margin-bottom: 1em;
+  border-bottom: solid 2px black;
+  padding-bottom: 1em;
 }
 
 .col .content, .col-1 .content, .col-2 .content, .col-3 .content {

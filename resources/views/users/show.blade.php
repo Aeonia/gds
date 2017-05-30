@@ -24,7 +24,16 @@
   @if (Auth::check() && Auth::user()->can('view', $user))
     <section>
       <h2 class="title">Mes notifications</h2>
-      @each('notifications.item', $user->notifications->sortByDesc('created_at'), 'notification', 'notifications.no-items')
+      @forelse ($user->notifications->sortByDesc('created_at') as $notification)
+        <article>
+          <h3 class="title">
+            <a href="{{ route('articles.show', $notification->article_id) }}">{{ $notification->article->title }}</a>
+          </h3>
+          <p>{{ $notification->content }}</p>
+        </article>
+      @empty
+        <p>(Rien à déclarer)</p>
+      @endforelse
     </section>
   @endif
 @endsection
