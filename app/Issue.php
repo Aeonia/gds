@@ -14,4 +14,12 @@ class Issue extends Model
     protected $fillable = [
         'published_at'
     ];
+
+    /**
+     * Get the articles for the issue.
+     */
+    public function articles()
+    {
+        return $this->belongsToMany('App\Article');
+    }
 }

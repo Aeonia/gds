@@ -17,9 +17,11 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['only' => [
-            'update'
-        ]]);
+        $this->middleware('auth')->only([
+            'edit',
+            'update',
+            'upgrade'
+        ]);
     }
 
     /**
@@ -69,12 +71,26 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if ($request->has('level')) {
-            if (Auth::user()->can('upgrade', $user)) {
-                $user->fill($request->all());
-                $user->save();
-            }
-        } elseif (Auth::user()->can('update', $user)) {
+        if (Auth::user()->can('update', $user)) {
+            $user->fill($request->all());
+            $user->save();
+        }
+
+        return redirect()->route('users.show', [$user]);
+    }
+
+    /**
+     * Upgrade the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $user_id
+     * @return \Illuminate\Http\Response
+     */
+    public function upgrade(Request $request, $user_id)
+    {
+        $user = User::findOrFail($user_id);
+
+        if (Auth::user()->can('upgrade', $user)) {
             $user->fill($request->all());
             $user->save();
         }

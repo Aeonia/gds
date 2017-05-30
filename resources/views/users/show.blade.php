@@ -4,7 +4,7 @@
 
 @section('content')
   @if (Auth::check() && Auth::user()->can('upgrade', $user))
-    <form class="button-only next-to-title" role="form" method="post" action="{{ route('users.update', $user->id) }}">
+    <form class="button-only next-to-title" role="form" method="post" action="{{ route('users.upgrade', $user->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
 

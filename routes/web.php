@@ -55,6 +55,10 @@ Route::resource(
     'ArticleController'
 );
 
+Route::put(
+    '/users/{user_id}/upgrade',
+    'UserController@upgrade'
+)->name('users.upgrade');
 Route::resource(
     'users',
     'UserController',
@@ -64,5 +68,5 @@ Route::resource(
 Route::resource(
     'issues',
     'IssueController',
-    ['only' => ['index', 'show', 'create', 'store']]
+    ['only' => ['index', 'show', 'edit', 'update']]
 );

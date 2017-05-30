@@ -34,6 +34,10 @@ class ArticleController extends Controller
     {
         $sort = $request->cookie('sort');
 
+        if (!$sort) {
+            $sort = 'newest';
+        }
+
         if ($request->has('sort')) {
             $sort =  $request->input('sort');
         }
@@ -114,9 +118,13 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles.edit', [
-            'article' => $article
-        ]);
+        if (Auth::user()->can('update', $article)) {
+            return view('articles.edit', [
+                'article' => $article
+            ]);
+        } else {
+            return view('no-permissions');
+        }
     }
 
     /**

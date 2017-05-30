@@ -1,0 +1,246 @@
+@import 'common';
+@import 'flexbox';
+@import 'responsive';
+
+$color: #636b6f;
+$secondary-color: #fafafb;
+$border-color: rgba(12,13,14,.15);
+$hover-color: rgba(239,240,241,0.75);
+
+body {
+  margin: 1em auto;
+
+  position:relative;
+
+  color: $color;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.container {
+  padding: 0 1em;
+}
+
+p::first-letter {
+  margin-left: 1em;
+}
+
+a {
+  color: red;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.title {
+  margin: 0;
+
+  font-family: 'Fredericka the Great', cursive;
+  font-weight: 100;
+}
+
+header {
+  font-size: .8em;
+
+  .title {
+    @extend .text-center;
+
+    font-size: 2.25em;
+  }
+
+  .next-to-title {
+    @extend .title;
+    @extend .float-left;
+
+    text-decoration: none;
+  }
+
+  .next-to-title:hover {
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+    background-color: $hover-color;
+  }
+
+  $a_height: 4em;
+
+  a.gds {
+    @extend .overflow-hidden;
+
+    display: inline-block;
+    padding: 0 0 0 $a_height;
+    width: 0;
+    height: $a_height;
+
+    background-image: url('../images/simplon.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    line-height: $a_height;
+  }
+
+  a.gds:hover {
+    background-color: $hover-color;
+  }
+
+  aside {
+    @extend .flex-row;
+    @extend .justify-space-around;
+    @extend .align-center;
+
+    margin: 1em 0;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    height: $a_height;
+
+    font-weight: 700;
+
+    p {
+      @extend .text-center;
+
+      width: 20em;
+    }
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+
+  header {
+    .title {
+      font-size: 4.5em;
+    }
+  }
+
+}
+
+.newspaper {
+  @extend .container;
+
+  position:relative;
+
+  margin: 1em auto;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, .150);
+
+  background: url('../images/paper-texture.png');
+  background-size: 100% 100%;
+
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .18);
+}
+
+.newspaper:before {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  z-index: -1;
+
+  border: 1px solid rgba(0, 0, 0, .150);
+  width: 100%;
+  height: 100%;
+
+  background: url('../images/paper-texture.png');
+  background-size: 100% 100%;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .19);
+  content: '';
+  transform: rotate(1deg);
+}
+
+.newspaper:after {
+  position: absolute;
+  top: 1px;
+  left: -2px;
+  z-index: -2;
+
+  border: 1px solid rgba(0, 0, 0, .150);
+  width: 100%;
+  height: 100%;
+
+  background: url('../images/paper-texture.png');
+  background-size: 100% 100%;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+  content: '';
+  transform: rotate(-1deg);
+}
+
+article {
+  .title {
+    @extend .text-center;
+
+    min-height: 2.5em;
+  }
+
+  aside {
+    @extend .text-right;
+
+    margin: .5em 0;
+
+    font-weight: 700;
+  }
+}
+
+.row {
+  @extend .flex-column;
+}
+
+.col {
+  .content {
+    column-gap: 1em;
+    column-rule-color: $border-color;
+    column-rule-style: solid;
+    column-rule-width: 1px;
+    text-align: justify;
+  }
+}
+
+.col-1 {
+  @extend .col;
+
+  order: 1;
+}
+
+.col-2 {
+  @extend .col;
+}
+
+.col-3 {
+  @extend .col;
+}
+
+@media (min-width: $screen-sm-min) {
+
+  .col {
+    &:not(:first-child) {
+      padding-left: .5em;
+    }
+
+    &:not(:last-child) {
+      border-right: solid 1px $border-color;
+      padding-right: .5em;
+    }
+  }
+
+  .row {
+    flex-direction: row;
+  }
+
+  .col-1 {
+    width: 32%;
+
+    order: 0;
+  }
+
+  .col-2 {
+    width: 66%;
+
+    .content {
+      column-count: 2;
+    }
+  }
+
+  .col-3 {
+    width: 100%;
+
+    .content {
+      column-count: 3;
+    }
+  }
+
+}

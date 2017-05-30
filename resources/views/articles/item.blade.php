@@ -1,6 +1,6 @@
 <article>
   <h2 class="title">
-    <a href="{{ route('articles.index') }}/{{ $article->id }}">{{ $article->title }}</a>
+    <a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a>
     @if ($article->issue())
       @if ($article->issue()->published_at)
         <span class="status published">publié le {{ $article->issue()->published_at }}</span>
