@@ -11,6 +11,16 @@
       .controller('markdownController', function($scope) {
         $scope.content = `{{ old('content', $content) }}`;
         $scope.title = '{{ old('title', $title) }}';
+        $scope.storage = window.localStorage;
+
+        $scope.saveDraft = function() {
+          $scope.storage['articleDraft'] = $scope.content;
+        };
+        $scope.loadDraft = function() {
+          $scope.content = $scope.storage['articleDraft'];
+
+          return false;
+        };
       })
       .filter('markdown', function() {
           let converter = new showdown.Converter();
@@ -28,7 +38,7 @@
     <div class="group{{ $errors->has('content') ? ' has-error' : '' }}">
       <label for="content">Contenu</label>
 
-      <textarea id="content" name="content" rows="15" ng-model="content" maxlength="5000" required></textarea>
+      <textarea id="content" name="content" rows="15" ng-model="content" ng-change="saveDraft()" maxlength="5000" required></textarea>
 
       <p class="text-right" ng-cloak>@{{ content.length }} caractères (140 minimum)</p>
 
@@ -53,6 +63,7 @@
 
     <div class="row">
       <a href="{{ $cancel }}">annuler</a>
+      <button type="button" ng-click="loadDraft()">recharcher brouillon</button>
       <button type="submit">envoyer</button>
     </div>
   </form>
