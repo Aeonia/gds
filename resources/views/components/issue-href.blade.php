@@ -1,0 +1,12 @@
+{{
+  parse_url(
+    route('issues.show', 
+      getdate(
+        strtotime(
+          $issue->published_at
+        )
+      )
+    ),
+    PHP_URL_PATH
+  )
+}}

@@ -180,8 +180,11 @@ article {
   @extend .flex-column;
 
   margin-bottom: 1em;
-  border-bottom: solid 2px black;
   padding-bottom: 1em;
+
+  &:not(:last-of-type) {
+    border-bottom: solid 2px black;
+  }
 }
 
 .col {
@@ -247,4 +250,36 @@ article {
     }
   }
 
+}
+
+form:not([class~=button-only]) {
+  @extend .flex-column;
+  @extend .align-stretch;
+
+  margin: 1.5em auto;
+  width: 100%;
+  max-width: $screen-xs-min;
+
+  .group {
+    @extend .flex-column;
+    @extend .align-stretch;
+
+    margin-bottom: 1em;
+  }
+}
+
+button {
+  margin: 0 .2em;
+  border: solid 1px $border-color;
+  border-radius: 0;
+  min-width: 2em;
+  height: 2em;
+
+  background: $secondary-color;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: .9em;
+}
+
+button:hover {
+  background: $hover-color;
 }

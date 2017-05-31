@@ -384,10 +384,8 @@ aside:not(.comments) {
 
 .status.pending-publication {
   color: orange;
-  text-decoration: none;
 }
 
 .status.published {
   color: green;
-  text-decoration: none;
 }

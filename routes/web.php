@@ -65,8 +65,12 @@ Route::resource(
     ['only' => ['index', 'show', 'edit', 'update']]
 );
 
+Route::get(
+    '/issues/{year}/{mon}/{mday}',
+    'IssueController@show'
+)->name('issues.show');
 Route::resource(
     'issues',
     'IssueController',
-    ['only' => ['index', 'show', 'edit', 'update']]
+    ['only' => ['index', 'edit', 'update']]
 );

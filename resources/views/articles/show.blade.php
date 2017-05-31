@@ -31,13 +31,10 @@
     @endif
     <h1 class="title">
       {{ $article->title }}
-      @if ($article->issue())
-        @if ($article->issue()->published_at)
-          <span class="status published">publié le {{ $article->issue()->published_at }}</span>
-        @else
-          <span class="status pending-publication">en attente de publication</span>
-        @endif
-      @endif
+      @component('components.article-status', [
+        'article' => $article
+      ])
+      @endcomponent
     </h1>
     <div class="content">
       {!! $article->html_content !!}

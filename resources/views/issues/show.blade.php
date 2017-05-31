@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
-      Publication du {{ $issue->published_at }} - la gazette des Simplonien.ne.s
+      Publication du
+      @component('components.issue-date', [
+        'issue' => $issue
+      ])
+      @endcomponent
+      - la gazette des Simplonien.ne.s
     </title>
 
     <!-- Fonts -->
@@ -17,6 +22,16 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/images/simplon.png') }}">
   </head>
   <body>
+    @if (!$issue->published_at && Auth::check() && Auth::user()->can('update', $issue))
+      <form role="form" method="post" action="{{ route('issues.update', $issue->id) }}">
+        {{ csrf_field() }}
+        {{ method_field('PUT') }}
+
+        <div class="group">
+          <button type="submit">bon à tirer</button>
+        </div>
+      </form>
+    @endif
     <main class="newspaper">
       <header>
         <a class="next-to-title" href="{{ route('issues.index') }}">&larr;</a>
@@ -25,7 +40,12 @@
           <strong>Simplonien.ne.s</strong>
         </h1>
         <aside>
-          <p>{{ $issue->published_at }}</p>
+          <p>
+            @component('components.issue-date', [
+              'issue' => $issue
+            ])
+            @endcomponent
+          </p>
           <a class="gds" href="{{ route('root') }}">GDS - la gazette des Simplonien.ne.s</a>
           <p>édition de P20</p>
         </aside>

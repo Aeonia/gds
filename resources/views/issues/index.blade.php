@@ -3,16 +3,28 @@
 @section('title', 'Publications')
 
 @section('content')
-  @if (Auth::check() && Auth::user()->can('create', App\Issue::class))
-  <form class="button-only next-to-title" method="get" action="{{ route('issues.edit', $next_issue) }}">
-    <button type="submit">nouvelle</button>
-  </form>
+  @if (Auth::check() && Auth::user()->can('update', $next_issue))
+    <form class="button-only next-to-title" method="get" action="{{ route('issues.edit', $next_issue) }}">
+      <button type="submit">maquette du prochain numéro</button>
+    </form>
   @endif
   <h1 class="title">Publications</h1>
 
   <ul>
     @forelse ($issues as $issue)
-      <li><a href="{{ route('issues.show', $issue->id) }}">{{ $issue->published_at }}</a></li>
+      <li>
+        <a href="
+          @component('components.issue-href', [
+            'issue' => $issue
+          ])
+          @endcomponent
+        ">
+          @component('components.issue-date', [
+            'issue' => $issue
+          ])
+          @endcomponent
+        </a>
+      </li>
     @empty
       <li>(Aucune publication disponible)</li>
     @endforelse

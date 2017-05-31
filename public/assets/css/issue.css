@@ -53,7 +53,7 @@ pre code {
   text-align: right;
 }
 
-.flex-container, .flex-row, header aside, .flex-column, .row, .perfect-center {
+.flex-container, .flex-row, header aside, .flex-column, .row, form:not([class~=button-only]), form:not([class~=button-only]) .group, .perfect-center {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -66,7 +66,7 @@ pre code {
           flex-direction: row;
 }
 
-.flex-column, .row {
+.flex-column, .row, form:not([class~=button-only]), form:not([class~=button-only]) .group {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -114,7 +114,7 @@ pre code {
           align-items: center;
 }
 
-.align-stretch {
+.align-stretch, form:not([class~=button-only]), form:not([class~=button-only]) .group {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
@@ -292,8 +292,11 @@ article aside {
 
 .row {
   margin-bottom: 1em;
-  border-bottom: solid 2px black;
   padding-bottom: 1em;
+}
+
+.row:not(:last-of-type) {
+  border-bottom: solid 2px black;
 }
 
 .col .content, .col-1 .content, .col-2 .content, .col-3 .content {
@@ -348,4 +351,29 @@ article aside {
     -webkit-column-count: 3;
             column-count: 3;
   }
+}
+
+form:not([class~=button-only]) {
+  margin: 1.5em auto;
+  width: 100%;
+  max-width: 480px;
+}
+
+form:not([class~=button-only]) .group {
+  margin-bottom: 1em;
+}
+
+button {
+  margin: 0 .2em;
+  border: solid 1px rgba(12, 13, 14, 0.15);
+  border-radius: 0;
+  min-width: 2em;
+  height: 2em;
+  background: #fafafb;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: .9em;
+}
+
+button:hover {
+  background: rgba(239, 240, 241, 0.75);
 }

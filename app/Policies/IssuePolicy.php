@@ -23,17 +23,6 @@ class IssuePolicy
     }
 
     /**
-     * Determine whether the user can create issues.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        return false;
-    }
-
-    /**
      * Determine whether the user can update the issue.
      *
      * @param  \App\User  $user
