@@ -31,7 +31,7 @@
     @endif
     <h1 class="title">
       {{ $article->title }}
-      @component('components.article-status', [
+      @component('articles.components.status', [
         'article' => $article
       ])
       @endcomponent

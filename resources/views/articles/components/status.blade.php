@@ -1,13 +1,13 @@
 @if ($article->issue())
   @if ($article->issue()->published_at)
     <a class="status published" href="
-      @component('components.issue-href', [
+      @component('issues.components.href', [
         'issue' => $article->issue()
       ])
       @endcomponent
     ">
       publié le
-      @component('components.issue-date', [
+      @component('issues.components.date', [
         'issue' => $article->issue()
       ])
       @endcomponent

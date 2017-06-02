@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Notification');
     }
+
+    public static function nickFury()
+    {
+        return User::where('level', 10)->first();
+    }
 }

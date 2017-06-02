@@ -14,12 +14,12 @@
     @forelse ($issues as $issue)
       <li>
         <a href="
-          @component('components.issue-href', [
+          @component('issues.components.href', [
             'issue' => $issue
           ])
           @endcomponent
         ">
-          @component('components.issue-date', [
+          @component('issues.components.date', [
             'issue' => $issue
           ])
           @endcomponent

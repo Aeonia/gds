@@ -57,102 +57,6 @@ class IssueController extends Controller
                 $year.'-'.$mon.'-'.$mday
             )->firstOrFail()
         );
-
-        $headlines = $issue->articles()->where(
-            'title', '!=', 'Bref'
-        )->orderBy('vote_count', 'desc')->get();
-        $news = $issue->articles()->where(
-            'title', 'Bref'
-        )->orderBy('vote_count', 'desc')->get();
-
-        $rows = [[]];
-
-        $used_columns = 0;
-        $col_length = 0;
-
-        $j = 0;
-
-        for ($i = 0; $i < count($headlines); ) {
-            if ($used_columns == 3) {
-                $rows[] = [];
-                $used_columns = 0;
-            }
-
-            if (strlen($headlines[$i]->content) < 1000) {
-                $wanted_columns = 1;
-            } elseif (strlen($headlines[$i]->content) < 2000) {
-                $wanted_columns = 2;
-            } else {
-                $wanted_columns = 3;
-            }
-
-            $article = (object)[];
-
-            if ($used_columns + $wanted_columns <= 3) {
-                $used_columns += $wanted_columns;
-
-                $article->col = $wanted_columns;
-                $article->content = $headlines[$i];
-
-                $col_length = strlen($headlines[$i]->content) / (1.5 * $article->col);
-
-                ++$i;
-            } else {
-                $article->col = 3 - $used_columns;
-                $article->content = (object)[];
-                $article->content->title = 'Bref';
-                $article->content->sections = [];
-
-                $padding_length = 0;
-
-                while (
-                    $padding_length < $col_length &&
-                    $j < count($news)
-                ) {
-                    $padding_length += strlen($news[$j]->content);
-                    $article->content->sections[] = $news[$j];
-
-                    ++$j;
-                }
-
-                $used_columns = 3;
-            }
-
-            $rows[count($rows)-1][] = $article;
-        }
-
-        if ($j < count($news)) {
-            $rows[] = [];
-
-            $article = (object)[];
-            $article->content = (object)[];
-            $article->content->title = 'Bref';
-            $article->content->sections = [];
-
-            $padding_length = 0;
-
-            while ($j < count($news)) {
-                $padding_length += strlen($news[$j]->content);
-                $article->content->sections[] = $news[$j];
-
-                ++$j;
-            }
-
-            if ($padding_length < 400) {
-                $article->col = 1;
-            } elseif ($padding_length < 800) {
-                $article->col = 2;
-            } else {
-                $article->col = 3;
-            }
-
-            $rows[count($rows)-1][] = $article;
-        }
-
-        return view('issues.show', [
-            'issue' => $issue,
-            'rows' => $rows
-        ]);
     }
 
     /**
@@ -213,7 +117,7 @@ class IssueController extends Controller
      * @param  \App\Issue  $issue
      * @return \Illuminate\Http\Response
      */
-    public function showIssue(Issue $issue)
+    private function showIssue(Issue $issue)
     {
         $headlines = $issue->articles()->where(
             'title', '!=', 'Bref'

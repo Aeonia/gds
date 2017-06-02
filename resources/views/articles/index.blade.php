@@ -14,7 +14,7 @@
     <article>
       <h2 class="title">
         <a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a>
-        @component('components.article-status', [
+        @component('articles.components.status', [
           'article' => $article
         ])
         @endcomponent

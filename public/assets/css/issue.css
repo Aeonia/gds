@@ -11,9 +11,13 @@ code {
   font-size: .8rem;
 }
 
+pre {
+  background: #dfe0e1;
+}
+
 pre code {
   display: block;
-  padding: 1em;
+  padding: .6em;
 }
 
 .clear-both {
@@ -28,7 +32,7 @@ pre code {
   float: right;
 }
 
-.overflow-auto {
+.overflow-auto, pre {
   overflow: auto;
 }
 

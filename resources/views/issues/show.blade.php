@@ -7,7 +7,7 @@
 
     <title>
       Publication du
-      @component('components.issue-date', [
+      @component('issues.components.date', [
         'issue' => $issue
       ])
       @endcomponent
@@ -41,7 +41,7 @@
         </h1>
         <aside>
           <p>
-            @component('components.issue-date', [
+            @component('issues.components.date', [
               'issue' => $issue
             ])
             @endcomponent

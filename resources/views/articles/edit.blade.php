@@ -1,4 +1,4 @@
-@component('articles.form', [
+@component('articles.components.form', [
   'title' => $article->title,
   'content' => $article->content,
   'action' => route('articles.update', $article->id),
