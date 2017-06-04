@@ -183,8 +183,6 @@ class IssueController extends Controller
         }
 
         if ($j < count($news)) {
-            $rows[] = [];
-
             $article = (object)[];
             $article->content = (object)[];
             $article->content->title = 'Bref';
@@ -192,22 +190,51 @@ class IssueController extends Controller
 
             $padding_length = 0;
 
-            while ($j < count($news)) {
-                $padding_length += strlen($news[$j]->content);
-                $article->content->sections[] = $news[$j];
+            if ($used_columns <= 3) {
+                $article->col = 3 - $used_columns;
 
-                ++$j;
+                while (
+                    $padding_length < $col_length &&
+                    $j < count($news)
+                ) {
+                    $padding_length += strlen($news[$j]->content);
+                    $article->content->sections[] = $news[$j];
+
+                    ++$j;
+                }
+
+                $used_columns = 3;
+
+                $rows[count($rows)-1][] = $article;
+
+                $article = (object)[];
+                $article->content = (object)[];
+                $article->content->title = 'Bref';
+                $article->content->sections = [];
+
+                $padding_length = 0;
             }
 
-            if ($padding_length < 400) {
-                $article->col = 1;
-            } elseif ($padding_length < 800) {
-                $article->col = 2;
-            } else {
-                $article->col = 3;
-            }
+            if ($j < count($news)) {
+                $rows[] = [];
 
-            $rows[count($rows)-1][] = $article;
+                while ($j < count($news)) {
+                    $padding_length += strlen($news[$j]->content);
+                    $article->content->sections[] = $news[$j];
+
+                    ++$j;
+                }
+
+                if ($padding_length < 400) {
+                    $article->col = 1;
+                } elseif ($padding_length < 800) {
+                    $article->col = 2;
+                } else {
+                    $article->col = 3;
+                }
+
+                $rows[count($rows)-1][] = $article;
+            }
         }
 
         return view('issues.show', [
