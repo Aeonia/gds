@@ -9,8 +9,8 @@
   <script>
     angular.module('markdownApp', ['ngSanitize'])
       .controller('markdownController', function($scope) {
-        $scope.content = `{{ old('content', $content) }}`;
-        $scope.title = '{{ old('title', $title) }}';
+        $scope.content = `{!! old('content', str_replace(['\\', '`'], ['\\\\', '\`'], $content)) !!}`;
+        $scope.title = `{!! old('title', str_replace(['\\', '`'], ['\\\\', '\`'], $title)) !!}`;
         $scope.storage = window.localStorage;
 
         $scope.saveDraft = function() {
