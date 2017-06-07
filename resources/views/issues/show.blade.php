@@ -60,14 +60,14 @@
                   @foreach ($article->content->sections as $section)
                     <section>
                       {!! $section->html_content !!}
-                      <aside>{{ $section->user->name }}</aside>
+                      <aside>{{ $section->user->who() }}</aside>
                     </section>
                   @endforeach
                 </div>
               @else
                 <h2 class="title">{{ $article->content->title }}</h2>
                 <div class="content">{!! $article->content->html_content !!}</div>
-                <aside>{{ $article->content->user->name }}</aside>
+                <aside>{{ $article->content->user->who() }}</aside>
               @endisset
             </article>
           @endforeach 

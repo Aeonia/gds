@@ -244,6 +244,20 @@ article {
   }
 }
 
+.name {
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: initial;
+
+  &::before {
+    content: "(";
+  }
+
+  &::after {
+    content: ")";
+  }
+}
+
 .votes {
   @extend .flex-row;
   @extend .align-center;

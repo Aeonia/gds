@@ -14,5 +14,5 @@
       @endcomponent
     </div>
   @endisset
-  {{ $post->user->name }} - {{ $post->created_at }}
+  {{ $post->user->who() }} - {{ $post->created_at }}
 </aside>

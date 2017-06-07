@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'level'
+        'name', 'public_name', 'email', 'password', 'level'
     ];
 
     /**
@@ -37,6 +37,21 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany('App\Notification');
+    }
+
+    /**
+     * Get the public name for the user if it exists;
+     * get the regular name otherwise.
+     */
+    public function who()
+    {
+        return (
+            $this->public_name !== null
+        ) ? (
+            $this->public_name
+        ) : (
+            $this->name
+        );
     }
 
     public static function nickFury()

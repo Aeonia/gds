@@ -55,10 +55,6 @@ Route::resource(
     'ArticleController'
 );
 
-Route::put(
-    '/users/{user_id}/upgrade',
-    'UserController@upgrade'
-)->name('users.upgrade');
 Route::resource(
     'users',
     'UserController',

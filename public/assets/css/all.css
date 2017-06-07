@@ -340,6 +340,20 @@ article.showing .title, article.showing .next-to-title {
   margin-top: -.5em;
 }
 
+.name {
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: initial;
+}
+
+.name::before {
+  content: "(";
+}
+
+.name::after {
+  content: ")";
+}
+
 .votes {
   font-size: 1.4em;
 }

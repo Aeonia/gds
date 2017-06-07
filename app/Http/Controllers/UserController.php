@@ -32,7 +32,11 @@ class UserController extends Controller
     public function index()
     {
         return view('users.index', [
-            'users' => User::paginate(50)
+            'users' => User::orderBy(
+                'public_name'
+            )->orderBy(
+                'name'
+            )->paginate(50)
         ]);
     }
 
@@ -71,27 +75,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if (Auth::user()->can('update', $user)) {
-            $user->fill($request->all());
-            $user->save();
+        $input = $request->all();
+
+        if (!Auth::user()->can('upgrade', $user)) {
+            unset($input['level']);
+            unset($input['public_name']);
         }
 
-        return redirect()->route('users.show', [$user]);
-    }
-
-    /**
-     * Upgrade the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  $user_id
-     * @return \Illuminate\Http\Response
-     */
-    public function upgrade(Request $request, $user_id)
-    {
-        $user = User::findOrFail($user_id);
-
-        if (Auth::user()->can('upgrade', $user)) {
-            $user->fill($request->all());
+        if (Auth::user()->can('update', $user)) {
+            $user->fill($input);
             $user->save();
         }
 

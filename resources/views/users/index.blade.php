@@ -7,7 +7,7 @@
 
   <ul>
     @forelse ($users as $user)
-      <li><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></li>
+      <li><a href="{{ route('users.show', $user->id) }}">{{ $user->who() }}</a></li>
     @empty
       <li>(Aucun utilisateur disponible)</li>
     @endforelse
