@@ -38,21 +38,21 @@
     <div class="group{{ $errors->has('content') ? ' has-error' : '' }}">
       <label for="content">Contenu</label>
 
-      <textarea id="content" name="content" rows="15" ng-model="content" ng-change="saveDraft()" maxlength="5000" required></textarea>
+      <textarea id="content" name="content" rows="15" ng-model="content" ng-change="saveDraft()" maxlength="{{ App\Article::maximumLength() }}" required></textarea>
 
-      <p class="text-right" ng-cloak>@{{ content.length }} caractères (140 minimum)</p>
+      <p class="text-right" ng-cloak>@{{ content.length }} caractères ({{ App\Article::minimumLength() }} minimum)</p>
 
       @if ($errors->has('content'))
         <p class="help-block">{{ $errors->first('content') }}</p>
       @endif
     </div>
 
-    <div class="group{{ $errors->has('title') ? ' has-error' : '' }}" ng-show="content.length >= 500">
+    <div class="group{{ $errors->has('title') ? ' has-error' : '' }}" ng-show="content.length >= {{ App\Article::newsLength() }}">
       <label for="title">Titre</label>
 
-      <input id="title" type="text" name="title" ng-model="title" maxlength="255" autofocus>
+      <input id="title" type="text" name="title" ng-model="title" maxlength="{{ App\Article::titleMaximumLength() }}" autofocus>
 
-      <p class="text-right" ng-cloak>@{{ title.length }} caractères (255 maximum, obligatoire à partir de 500 caractères)</p>
+      <p class="text-right" ng-cloak>@{{ title.length }} caractères ({{ App\Article::titleMaximumLength() }} maximum, obligatoire à partir de {{ App\Article::newsLength() }} caractères)</p>
 
       @if ($errors->has('title'))
         <p class="help-block">{{ $errors->first('title') }}</p>

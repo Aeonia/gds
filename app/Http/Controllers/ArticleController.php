@@ -243,17 +243,17 @@ class ArticleController extends Controller
 
         if (
             $request->input('content') &&
-            strlen($request->input('content')) < 500
+            strlen($request->input('content')) < Article::newsLength()
         ) {
             $this->validate($request, [
-              'content' => 'required|min:140'
+              'content' => 'required|min:' . Article::minimumLength()
             ]);
 
             $input['title'] = 'Bref';
         } else {
             $this->validate($request, [
-              'title' => 'required|max:255',
-              'content' => 'required|max:5000'
+              'title' => 'required|max:' . Article::titleMaximumLength(),
+              'content' => 'required|max:' . Article::maximumLength()
             ]);
         }
 

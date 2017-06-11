@@ -79,7 +79,27 @@ class Article extends Model
     {
         return str_limit(
             strip_tags($html),
-            140
+            self::minimumLength()
         );
+    }
+
+    public static function minimumLength()
+    {
+        return 140;
+    }
+
+    public static function newsLength()
+    {
+        return 500;
+    }
+
+    public static function maximumLength()
+    {
+        return 6000;
+    }
+
+    public static function titleMaximumLength()
+    {
+        return 255;
     }
 }
