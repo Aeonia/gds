@@ -1,3 +1,4 @@
+@charset "UTF-8";
 nav ul {
   margin: 0;
   padding: 0;
@@ -19,6 +20,18 @@ pre {
 pre code {
   display: block;
   padding: 5px;
+}
+
+blockquote > p::first-letter {
+  margin-left: 0;
+}
+
+blockquote > p:first-child::before {
+  content: "« ";
+}
+
+blockquote > p:last-child::after {
+  content: "»";
 }
 
 .clear-both {
