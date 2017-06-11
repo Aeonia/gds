@@ -190,7 +190,7 @@ class IssueController extends Controller
 
             $padding_length = 0;
 
-            if ($used_columns <= 3) {
+            if ($used_columns < 3) {
                 $article->col = 3 - $used_columns;
 
                 while (

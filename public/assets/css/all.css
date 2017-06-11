@@ -6,18 +6,19 @@ nav ul {
 
 code {
   display: inline-block;
-  padding: .1em .2em;
+  padding: 1px 5px;
   background: #dfe0e1;
   font-size: .8rem;
 }
 
 pre {
+  margin: 5px 0;
   background: #dfe0e1;
 }
 
 pre code {
   display: block;
-  padding: .6em;
+  padding: 5px;
 }
 
 .clear-both {
